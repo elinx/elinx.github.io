@@ -55,7 +55,7 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 
-minimal_mistakes_skin: "dirt" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum" "sunrise"
+minimal_mistakes_skin: "dark" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum" "sunrise"
 paginate: 5
 author:
   name     : "Elinx"
@@ -80,7 +80,7 @@ comments:
   provider: "utterances"
   utterances:
     repo: "elinx/elinx.github.io"
-    theme: "github-light" # "github-dark"
+    theme: "dark-blue" # "icy-dark" "github-dark-orange" "photon-dark" "github-light" "github-dark"
     issue_term: "pathname"
     label: "Comment"
     crossorigin: "anonymous"
