@@ -74,3 +74,12 @@ defaults:
       comments: true
       share: true
       related: true
+
+comments:
+  provider: utterances
+
+utterances:
+  repo:                "elinx/elinx.github.io"
+  issue-term:          "pathname"
+  label:               "Comments"
+  theme:               "github-light"
