@@ -2,7 +2,7 @@
 layout: single
 title: IR Translation
 date: 2021-06-30 21:51 +0800
-categories: compiler design
+tags: compiler design
 classes: wide
 ---
 1. 为什么(LLVM)IR里边没有logical and `&&` 和 logical or `||` 指令?

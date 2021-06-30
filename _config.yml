@@ -37,8 +37,9 @@ plugins:
 
 kramdown:
   input: GFM
-  gfm_quirks: [paragraph_end]
-
+  syntax_highter_ops:
+    block:
+      line_number: true
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
