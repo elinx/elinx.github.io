@@ -79,6 +79,7 @@ repository: "elinx/elinx.github.io"
 comments:
   provider: "utterances"
   utterances:
+    repo: "elinx/elinx.github.io"
     theme: "github-light" # "github-dark"
     issue_term: "pathname"
     label: "Comment"
