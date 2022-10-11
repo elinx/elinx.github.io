@@ -28,29 +28,28 @@ you have two new modes of knowing that come to be emphasized.
 
 `And the first is the method of
 experimentation that we now associate with the scientific method.` Things like the telescope
-start to be used by folks like Galileo in order to prove that the Earth actually revolves around
+start to be used by folks like Galileo in order to prove that the Earth actually revolves[^1] around
 the Sun rather than the Sun revolving around the Earth. And this emphasis on experimentation
 really shows that humans as observers can attain truth. This method of observation
 often doesn't just rely on observation through the naked eye, however. It's often mediated through
 technological means such as telescopes or microscopes, etc. And this is the foundation
-for now what we associate with the natural sciences.
-
-On the other hand, you have a more
+for now what we associate with the natural sciences.  On the other hand, you have a more
 `mathematical method` that's emphasized by people like Newton. Here, the idea is that the universe
 obeys a set of natural laws. And if humans can access those laws and interpret them, laws like
 gravity, then we can make calculations that will allow us to understand the course of the universe.
 ***So there's less of an emphasis here on experimentation and observation and more on
 structures of reason.***
+> 第一种方法是通过科学的方法做实验，用科学仪器等观察得到truth；第二种是通过数学的方法，世界是由一系列的规则组成的，人类能过通过掌握这些规律理解世界。
 
 And so where you have somebody like Galileo suggesting that the
 Earth revolves[^1] around the Sun using means of observation, you have Newton saying actually
 we can prove that the Earth revolves around the Sun just by making mathematical calculations.
-
-
 If you've studied modern philosophy, you might recognize these two methods as the methods of
 empiricism, which focuses on sensory observation and rationalism, which focuses on laws of reason.
 Kant tries to do something like bring these two methods together. And this is what he calls
 `transcendental idealism`.
+> 像伽利略这样通过观察能够知道地球绕行太阳这个事实，也可以像牛顿这样说我有一个数学规则可以证明地球是绕着太阳转的，前者叫做经验主义，后者叫做理性主义。  
+> Q: 如果没有伽利略观察到的结果，牛顿会去思考万有引力这个规则吗？
 
 What are some features of the enlightenment that are important for our
 purposes here? Well, the first is the idea that the individual themselves can understand the world
@@ -59,29 +58,37 @@ whether it's the church, whether it's a textbook or something like that. A secon
 essential for the theme of this course overall is the theme of progress. The enlightenment
 develops this idea that humans are increasingly getting more and more free, more and more intelligent,
 we are becoming better. You see this type of thinking explicitly developed by Kant in what
-is enlightenment. In this text, Kant suggests that humans are gradually emerging out of
+is enlightenment.
+> 人们可以不依赖权威或者宗教去理解世界，而且人是发展的，会变的更加的自由，聪明的。
+
+In this text, Kant suggests that humans are gradually emerging out of
 immaturity and into enlightenment. And we're doing this by means of developing our reason.
 So we see here the emphasis on reason that emerges through the scientific revolution
 and the focus on universal natural laws. And we also see the emphasis on progress. The motto of
-the enlightenment, which Kant uses here is the Latin term Saperre Aude, which means dare to know
+the enlightenment, which Kant uses here is the Latin term Saperre Aude, which means `dare to know`
 for Kant, immaturity is defined as the incapacity to know without someone else's guidance,
 whereas maturity or wisdom is associated with being able to be guided by yourself,
 specifically by your own reason. When we fail to overcome ignorance, it's often self-incurred
 according to Kant. Self-incurred ignorance or immaturity is caused by a lack of determination
 or courage rather than by a lack of intelligence. So it's really easy for us, Kant thinks, to be
-huddled up in a cocoon of ignorance and to be overtaken by laziness and cowardice because
+huddled[^2] up in a cocoon[^3] of ignorance and to be overtaken by laziness and cowardice because
 that feels nice, right? It's stressful to be faced with the responsibility of knowing things
 beyond the realm of what we've been told, what we've been taught from an early age. We like to
-rely on what Kant calls statutes and formulas rather than undertaking the task of figuring
-things out for ourselves. But a problem here is that this leaves us open to being manipulated
+rely on what Kant calls statutes[^4] and formulas rather than undertaking the task of figuring
+things out for ourselves.
+> 康德这里说的不成熟是要依靠别人来指引才能认识世界，而成熟或者智慧说的是自己通过理性指导自己，前面说过我们不需要依赖权威，只需要自己就够了。但是这很难，人要克服无知需要决心毅力和勇气，但是偷懒和怯懦太舒适了，依赖现成的条规和公式太简单了，承担责任跳出舒适圈太难了，因此康德才说要`dare to know`。
+
+But a problem here is that this leaves us open to being manipulated
 by others, especially those in power who may not have the best of intentions. Now you might be
 hearing this and think, great, all I have to do is think my way out of ignorance because I have,
 as an individual, the tools to do so. But as Kant notes in this text, it's really challenging for us
 to do that, right? I can't just be like, I will myself magically to have the answers to everything.
 Even though as humans, we are endowed with reason, which means that we have the tools we need in
 order to overcome ignorance, according to Kant. It's hard for us to do so by an individual cultivation
-of the mind. The best way is for the public as a group to enlighten itself. Here's where things
-get a little tricky for Kant, because it seems like we need some individuals initially to be
+of the mind. The best way is for the public as a group to enlighten itself.
+> 但是理性只是人人都具备的工具，人不是只要下定决心就一定能够知道所有想知道的事情，就神奇般的让自己摆脱了无知，最好的方法是利用群体的智慧来启蒙。
+
+Here's where things get a little tricky for Kant, because it seems like we need some individuals initially to be
 enlightened in order for the rest of the group to enlighten itself. But how do those individuals
 initially get enlightened? Well, he says a few people have the ability to do that. And after that,
 they're able to sort of trigger the enlightenment process in other people. So teaching here is not
@@ -97,21 +104,24 @@ be able to occur. But Kant says that there's also a private use of reason, which
 our reason in a civic post or office, basically in our jobs, right? And he says that in many cases,
 this type of reason does have to be restricted. An example that Kant gives is that I might disagree
 with current tax law, but as a citizen, I still have to pay my taxes. Here we see that for Kant,
-we have to obey the laws of the state, even as we might critique them. This pertains to a paradox
+we have to obey the laws of the state, even as we might critique them. This pertains[^5] to a paradox
 Kant describes on page 141, where paradoxically, we have freedom through the limitation of it.
+> 尽管人人都有理性的能力，但是只有少数人能通过自己指导自己获得启蒙，然后依靠这些人去启蒙大众。那这些人为什么要启蒙大众呢？用什么方法启蒙大众呢？ 为什么要启蒙呢？分为两种一种是自愿的，有强烈的责任感的；另一种是纯粹的释放的，表达自己的观点的需要；前提是社会要有自由，有争论，有抱怨，有冲突，有质疑，大众的启蒙才可能出现。通过的方式当然就是教育，但是教育不应该是灌输而应该是激发潜能。
+> 另外就引出了自由的定义，我们的自由是有限度的，甚至自由和限制是相伴相生的关系。
+
 And I just want to flag that paradox here because it's something we'll come back to.
-Broadening now from beyond this text, I just want to give you a few key takeaways that I think
-are important for understanding how Kant sets up the theme of this course. The first is the
-reliance on a reason rather than on God, religion, or other forms of authority. When Kant is
+Broadening now from beyond this text, I just want to give you a few key takeaways[^6] that I think
+are important for understanding how Kant sets up the theme of this course. The first is `the
+reliance on a reason rather than on God`, religion, or other forms of authority. When Kant is
 describing coming out of self incurred immaturity, he associates this immaturity in large part with
 religion. Now, Kant is not against religion, but he thinks that it should not be the driving force
 of our reason. Instead, our reason should follow the natural laws of the human mind. A second theme
-is a belief in the progress of history, which I mentioned as being a very important theme in the
-Enlightenment overall. This is what's sometimes known as a teleological view of history, or the
-idea that history is tending towards some end goal. Teleology comes from the Greek word telos,
+is a belief in `the progress of history`, which I mentioned as being a very important theme in the
+Enlightenment overall. This is what's sometimes known as a teleological[^7] view of history, or the
+idea that history is tending towards some end goal. Teleology[^7] comes from the Greek word telos,
 which means end, aim, or goal, and ology, logos, which means, among other things, rule. A third
 theme, which is not one that comes up particularly explicitly in this text, is that Kant thinks that
-there is a difference between appearances and things in themselves, but that we can never know
+there is `a difference between appearances and things in themselves`, but that we can never know
 what things are like beyond appearances. So for instance, when I am drinking this can of Lacroix,
 I only know it as it appears to me, right? It's cool to the touch. It's pink and orange. It tastes
 a certain way in my mouth. It has a vague taste of grapefruit. I can't ever know what this is like
@@ -121,5 +131,13 @@ depressing feature of human existence. It's actually kind of cool because it mea
 to do is focus on the way that things appear to us. And what we find is that they actually appear
 according to certain laws of reason. I look forward to discussing this with you on Slack and on Zoom.
 See you soon.
+> 总结一下三个主题：1. 人可以通过个人的理性认识世界 2. 历史是向前发展的 3. 我们认知有局限性，我们只能通过人类自身拥有的认识框架而不能超越自己认识世界，但是康德认为这是好事，我们专注于理性的规则就行了。  
+> 也就是说我们感知世界是我们能够理解的世界，是理性处理后的世界，我们倾向于认为有果必有因，但是就像伽利略和牛顿的关系一样，如果我们没有观察到世界的另一面，单纯通过推理真的能过推理出来地球围绕太阳转吗？
 
 [^1]: revolve 旋转，环绕，转动 "the earth revolves around the sun"
+[^2]: huddle 蜷缩在一块
+[^3]: cocoon 蚕茧
+[^4]: statute 法令，条文
+[^5]: pertain belong, be part of 属于，跟...有关，涉及
+[^6]: takeaways 可以理解为"精华"，重点
+[^7]: teleology 目的论
