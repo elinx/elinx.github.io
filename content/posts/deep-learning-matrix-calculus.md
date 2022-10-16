@@ -330,6 +330,22 @@ print(dx.shape, dw.shape)
 ```
 但是看`torch.matmul`就跟我们求出来的基本一致，但是这里`y`是一个1x1矩阵，`dx`的形状也多了一维，但是仍然可以进行减法计算，而`dw`的形状是对的。
 
+`torch.matmul`还有一个性质就是如果输入都是一维向量的话结果是求两个的点积，也就是跟点积完全一样了，所以应该`torch.dot`底层也是用`torch.matmul`实现的。
+```python
+x = tensor([1., 2, 3])
+w = tensor([4., 5, 6])
+
+y = torch.matmul(w, x)
+dx = jacobian(lambda x: torch.matmul(w, x), x)
+dw = jacobian(lambda w: torch.matmul(w, x), w)
+print(f'y: {y},\n\ndy/dx: {dx},\n\ndy/dw: {dw}')
+# y: 32.0,
+# 
+# dy/dx: tensor([4., 5., 6.]),
+# 
+# dy/dw: tensor([1., 2., 3.])
+```
+
 ## 向量对矩阵求导
 向量和矩阵的乘积是一个向量，怎么求向量对矩阵的导数呢？我们考察一下batch个input向量的情形，也就是假设一个神经元$\bm{w}$，m张图片输入记做$\bm{X}$，其形状是$(M, N)$：
 $$
