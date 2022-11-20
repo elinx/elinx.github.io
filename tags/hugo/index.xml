@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hugo on Collate, Summarize &amp; Explain</title><link>https://elinx.github.io/tags/hugo/</link><description>Recent content in Hugo on Collate, Summarize &amp; Explain</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>&amp;copy 2022 &lt;a href=https://twitter.com/Elinx>Elinx&lt;/a> :: &lt;a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0&lt;/a></copyright><lastBuildDate>Fri, 11 Nov 2022 20:24:10 +0800</lastBuildDate><atom:link href="https://elinx.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml"/><item><title>Katex Server Side Rendering With Hugo</title><link>https://elinx.github.io/posts/katex-server-side-rendering-with-hugo/</link><pubDate>Fri, 11 Nov 2022 20:24:10 +0800</pubDate><guid>https://elinx.github.io/posts/katex-server-side-rendering-with-hugo/</guid><description>将$\KaTeX$引入到Hugo里边几乎不费什么力气，并且能得到很好的显示效果和性能。但是如果文件比较大的时候就很糟心了，每次重新加载都要重</description><content>&lt;p>将$\KaTeX$引入到Hugo里边几乎不费什么力气，并且能得到很好的显示效果和性能。但是如果文件比较大的时候就很糟心了，每次重新加载都要重新渲染，在一般配置的电脑上加载&lt;a href="https://elinx.github.io/posts/deep-learning-matrix-calculus/">这篇公式较多的文章&lt;/a>的时候要耗时10s以上。&lt;/p>
+&lt;p>分析了一下加载的流程，Katex的渲染以及js脚本的下载都占用了不少的时间。这是因为使用的是Client Side的渲染方法，要先下载js再处理数学公式的内容，每次加载都要如此，那能不能在Server Side直接渲染呢，尤其是在Hugo这静态网站上面Once for All？&lt;/p>
+&lt;p>这篇文章&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>比较详细的综述了到目前为止(2022年)Katex在Server Side的渲染情况，主要有几种解决方法：&lt;/p>
+&lt;ul>
+&lt;li>让Hugo使用一个goldmark扩展，在这个扩展里边渲染Katex，目前仅有的是&lt;code>goldmark-qjs-katex&lt;/code>，但是这个扩展因为有不可移植代码的原因压根就没有被上游接受，不得已其作者自己fork了一份Hugo，但是似乎又没有精力维护跟上游版本的同步&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>，导致落后Hugo不少版本。&lt;/li>
+&lt;li>Hugo是支持pandoc的，而pandoc是支持Katex渲染的，也就意味着文档的格式要用pandoc来写，这篇文章&lt;sup id="fnref:3">&lt;a href="#fn:3" class="footnote-ref" role="doc-noteref">3&lt;/a>&lt;/sup>记录了这个过程。&lt;/li>
+&lt;li>或者尝试直接将扩展写到Hugo里边，但是并没有真正的在做Server Side渲染&lt;/li>
+&lt;/ul>
+&lt;p>上面的方法都是努力将渲染的过程集成到Hugo当中去，实现无缝的工作流，但是这个目标目前看来还很难实现。 作者花了很多的时间去调研，最后不得已使用了Client Side的渲染方式，看起来也是相当的无奈。&lt;/p>
+&lt;p>如果改变不了Hugo又不想切换其他工具的话，那就只能改变自己了。&lt;/p>
+&lt;p>事实上，考虑到直接调用&lt;code>katex.renderToString&lt;/code>就可以生成html，我们拿到Hugo输出html文件的后可以在自己的workflow上面加一个后处理的stage来完成替换就可以了。这是因为数学公式是以&lt;code>$&lt;/code>分割的，如果我们能定位到这些内容，用一些替换规则就可以完成简单的渲染了。&lt;/p>
+&lt;p>这里选择使用正则表达式匹配到&lt;code>$&lt;/code>中间的内容，然后调用Katex的函数生成html再替换原来的内容，注意这部分的配置要跟Client Side渲染的参数完全一样才能达到一致的效果。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">delimiters&lt;/span> &lt;span style="color:#f92672">=&lt;/span> [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> { &lt;span style="color:#a6e22e">left&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#34;$$&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">right&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#34;$$&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">display&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#66d9ef">true&lt;/span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> { &lt;span style="color:#a6e22e">left&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#34;$&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">right&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#34;$&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">display&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#66d9ef">false&lt;/span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>];
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">for&lt;/span> (&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">delim&lt;/span> &lt;span style="color:#66d9ef">of&lt;/span> &lt;span style="color:#a6e22e">delimiters&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">regex&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> RegExp(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">escapeRegex&lt;/span>(&lt;span style="color:#a6e22e">delim&lt;/span>.&lt;span style="color:#a6e22e">left&lt;/span>) &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#34;([\\S\\s]*?)&amp;#34;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">escapeRegex&lt;/span>(&lt;span style="color:#a6e22e">delim&lt;/span>.&lt;span style="color:#a6e22e">right&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;g&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> );
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">html&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">html&lt;/span>.&lt;span style="color:#a6e22e">replace&lt;/span>(&lt;span style="color:#a6e22e">regex&lt;/span>, &lt;span style="color:#66d9ef">function&lt;/span> (&lt;span style="color:#a6e22e">match&lt;/span>, &lt;span style="color:#a6e22e">g1&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">katex&lt;/span>.&lt;span style="color:#a6e22e">renderToString&lt;/span>(&lt;span style="color:#a6e22e">decode&lt;/span>(&lt;span style="color:#a6e22e">g1&lt;/span>), {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">displayMode&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">delim&lt;/span>.&lt;span style="color:#a6e22e">display&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">output&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#34;html&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">strict&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#66d9ef">false&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">macros&lt;/span>&lt;span style="color:#f92672">:&lt;/span> {},
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> });
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> });
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以想象得到的是这种方法会有误判，比如代码里边如果有&lt;code>$&lt;/code>的话就会出现渲染错误。实际运行的时候发现错误分为两种，一种是直接渲染成功了但是渲染的结果有问题，这种对我来说是可以接受的，因为在我常用的语言中似乎没有对&lt;code>$&lt;/code>有什么特殊的青睐，出现的概率很低，可以用替换的方式规避；&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">self&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> Error(&lt;span style="color:#a6e22e">error&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">^&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">ParseError&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">KaTeX&lt;/span> &lt;span style="color:#a6e22e">parse&lt;/span> &lt;span style="color:#a6e22e">error&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">Expected&lt;/span> &lt;span style="color:#e6db74">&amp;#39;EOF&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">got&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#&amp;#39;&lt;/span> &lt;span style="color:#a6e22e">at&lt;/span> &lt;span style="color:#a6e22e">position&lt;/span> &lt;span style="color:#ae81ff">30&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">…&lt;/span>&lt;span style="color:#a6e22e">n&lt;/span> &lt;span style="color:#a6e22e">style&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;color:#̲a6e22e&amp;#34;&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">right&lt;/span>&lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">/…&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>另一种是直接程序异常了，比如上面在渲染这篇文章的时候code block里边&lt;code>$&lt;/code>，并且中间有一些颜色变量，就导致了Katex渲染失败，这种就要么disable掉Katex的throw error的功能，接受可能出现的排版错乱，要么像我对这篇文章的处理一样加入白名单不进行再渲染，或者用其他符号代替然后进行说明，总体来看失败的概率还是很低的，属于可以接受的范围。&lt;/p>
+&lt;p>有了这个渲染脚本，再加上简单的读写文件操作就可以完成渲染的工作了，唯一缺的就是一个nodejs的运行环境了，这个时候就需要在CI里边增加setup环境的流程。我使用的是Github Action，创建一个nodejs的环境非常的简单&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">Setup nodejs enviroment&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">uses&lt;/span>: &lt;span style="color:#ae81ff">actions/setup-node@v3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">with&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">node-version&lt;/span>: &lt;span style="color:#ae81ff">18&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>有了nodejs环境，再增加一个调用脚本渲染的step就可以了，当然这个过程要放到Hugo产生静态网页之后。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">Render Katex on Server Side&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">run&lt;/span>: |&lt;span style="color:#e6db74">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> &lt;/span> &lt;span style="color:#ae81ff">node math.js &amp;lt;posts&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>当然，这个stpes可以选择再封装一层用来处理所有的posts，这里就不赘述了。&lt;/p>
+&lt;p>另外，我们实际上不再需要下载Katex的三个js文件了，可以将其从html里边删除掉，额外提升一点性能，参考代码如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">html&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">html&lt;/span>.&lt;span style="color:#a6e22e">replace&lt;/span>(&lt;span style="color:#e6db74">/&amp;lt;script defer[\s\S]*?katex\@0\.16\.2[\s\S]*?&amp;gt;[\s\S]*?&amp;lt;\/script&amp;gt;/gm&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这就是我当前使用的渲染方式，使用这种方式前面的那篇长文章的加载速度从10s变到了5s左右，提升了50%的性能，效果还是不错的，而且对写作-发布的工作流也没有特别大的影响。&lt;/p>
+&lt;p>&lt;code>TODO:&lt;/code>未来如果正则匹配错误率太高的话可以选择parse html的方式，过滤掉code block再匹配替换。&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>&lt;a href="https://misha.brukman.net/blog/2022/04/writing-math-with-hugo/">Writing math with Hugo&lt;/a>&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2">
+&lt;p>&lt;a href="https://graemephi.github.io/posts/static-katex-with-hugo/">Server-side KaTeX With Hugo&lt;/a>&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:3">
+&lt;p>&lt;a href="https://graemephi.github.io/posts/server-side-katex-with-hugo-part-2/">Server-side KaTeX With Hugo: Part 2&lt;/a>&amp;#160;&lt;a href="#fnref:3" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></content></item></channel></rss>

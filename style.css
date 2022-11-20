@@ -1,0 +1,9 @@
+blockquote.framed {
+    background: rgba(255,168,106,.1);
+    border: 1px solid var(--accent);
+}
+
+blockquote.framed p:first-of-type:before {
+    content: '';
+}
+
