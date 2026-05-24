@@ -1,16 +1,13 @@
-+++
-title = "Continental Phylosophy Lectures"
-date = "2022-10-07T23:10:46+08:00"
-author = ""
-authorTwitter = "" #do not include @
-cover = ""
-tags = ["Phylosophy", "Kant"]
-keywords = ["", ""]
-description = ""
-showFullContent = false
-readingTime = false
-hideComments = false
-+++
+---
+title: "Continental Phylosophy Lectures"
+date: 2022-10-07T23:10:46+08:00
+draft: false
+description: "大陆哲学课程笔记，从康德《什么是启蒙》开始。"
+summary: "大陆哲学课程笔记，从康德《什么是启蒙》开始。"
+tags: [Phylosophy, Kant]
+toc: true
+comment: true
+---
 
 
 ## Kant and the Enlightenment - 'What is Enlightenment'

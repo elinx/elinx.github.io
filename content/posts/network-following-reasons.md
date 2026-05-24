@@ -1,16 +1,13 @@
-+++
-title = "Network Following Reasons"
-date = "2022-10-04T21:03:18+08:00"
-author = "Elinx"
-authorTwitter = "" #do not include @
-cover = ""
-tags = ["记录", ""]
-keywords = ["", ""]
-description = "记录为什么关注这些内容创作者"
-showFullContent = false
-readingTime = false
-hideComments = false
-+++
+---
+title: "Network Following Reasons"
+date: 2022-10-04T21:03:18+08:00
+draft: true
+tags: [记录]
+description: "记录为什么关注这些内容创作者"
+summary: "记录为什么关注这些内容创作者"
+toc: true
+comment: true
+---
 
 | ID|平台|原因|关注时间|
 |:--:|:--:|:--:|:--|

@@ -1,8 +1,12 @@
 ---
-title: "Kids And Me"
+title: "依赖"
 date: 2022-09-19T15:19:36+08:00
 draft: false
+description: "关于带孩子和创作之间矛盾的短诗。"
+summary: "关于带孩子和创作之间矛盾的短诗。"
 tags: [瞬间]
+toc: true
+comment: true
 ---
 
 我抱怨，  
