@@ -1,0 +1,322 @@
+# ====================================================================================
+# Hugo Site Configuration
+# Blog: Collate, Summarize & Explain
+# Theme: FixIt (https://github.com/hugo-fixit/FixIt)
+# ====================================================================================
+
+baseURL = "https://elinx.github.io/"
+locale = "en"
+defaultContentLanguage = "en"
+title = "Collate, Summarize & Explain"
+theme = "FixIt"
+
+enableGitInfo = true
+enableRobotsTXT = true
+
+# ====================================================================================
+# Markup - Hugo native math passthrough + Goldmark
+# ====================================================================================
+
+[markup]
+  _merge = "shallow"
+
+  [markup.highlight]
+    codeFences = true
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = false
+
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      # Enable passthrough extension for native math rendering
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+      [markup.goldmark.extensions.passthrough.delimiters]
+        block = [["$$", "$$"], ["\\[", "\\]"]]
+        inline = [["$", "$"], ["\\(", "\\)"]]
+
+  [markup.tableOfContents]
+    endLevel = 4
+    ordered = false
+    startLevel = 1
+
+# ====================================================================================
+# Outputs & Taxonomies - inherit FixIt defaults
+# ====================================================================================
+
+[outputs]
+  _merge = "shallow"
+
+[taxonomies]
+  _merge = "shallow"
+
+# ====================================================================================
+# Frontmatter
+# ====================================================================================
+
+[frontmatter]
+  date = ["date", "publishDate", "lastmod"]
+  lastmod = [":git", "lastmod", "date", "publishDate"]
+  publishDate = ["publishDate", "date"]
+  expiryDate = ["expiryDate"]
+
+# ====================================================================================
+# Menu
+# ====================================================================================
+
+[menu]
+  [[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts/"
+    title = "Blog posts"
+    weight = 1
+    [menu.main.params]
+      icon = "fa-solid fa-pen-nib"
+
+  [[menu.main]]
+    identifier = "categories"
+    name = "Categories"
+    url = "/categories/"
+    title = "Categories"
+    weight = 2
+    [menu.main.params]
+      icon = "fa-solid fa-folder-tree"
+
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    title = "Tags"
+    weight = 3
+    [menu.main.params]
+      icon = "fa-solid fa-tags"
+
+  [[menu.main]]
+    identifier = "github"
+    name = "GitHub"
+    url = "https://github.com/elinx"
+    title = "GitHub"
+    weight = 4
+    [menu.main.params]
+      icon = "fa-brands fa-github"
+
+# ====================================================================================
+# Params - FixIt Theme Configuration
+# ====================================================================================
+
+[params]
+  version = "0.3.X"
+  description = "Collate, Summarize & Explain - A technical blog"
+  keywords = ["Hugo", "FixIt", "blog", "math", "deep learning"]
+  # default theme: ["light", "dark", "auto"]
+  defaultTheme = "auto"
+  # date format
+  dateFormat = "2006-01-02"
+  # images for SEO
+  images = []
+  # enable PWA
+  enablePWA = false
+
+  # ==================================================================================
+  # Header
+  # ==================================================================================
+  [params.header]
+    desktopMode = "sticky"
+    mobileMode = "auto"
+
+    [params.header.title]
+      logo = ""
+      name = "Elinx"
+      pre = ""
+      post = ""
+      typeit = false
+
+    [params.header.subtitle]
+      name = "Collate, Summarize & Explain"
+      typeit = false
+
+  # ==================================================================================
+  # Breadcrumb
+  # ==================================================================================
+  [params.breadcrumb]
+    enable = true
+    sticky = false
+    showHome = true
+    separator = "/"
+    capitalize = false
+
+  # ==================================================================================
+  # Footer
+  # ==================================================================================
+  [params.footer]
+    enable = true
+    copyright = true
+    author = true
+    since = 2022
+    wordcount = true
+
+  # ==================================================================================
+  # Home Page
+  # ==================================================================================
+  [params.home]
+    rss = 10
+
+    [params.home.profile]
+      enable = true
+      gravatarEmail = ""
+      avatarURL = ""
+      title = ""
+      subtitle = "Collate, Summarize & Explain"
+      typeit = true
+      social = true
+      disclaimer = ""
+
+  # ==================================================================================
+  # Social Links
+  # ==================================================================================
+  [params.social]
+    GitHub = "elinx"
+    Twitter = "Elinx"
+    Email = ""
+
+  # ==================================================================================
+  # Search
+  # ==================================================================================
+  [params.search]
+    enable = true
+    type = "fuse"
+    contentLength = 4000
+    placeholder = ""
+    maxResultLength = 10
+    snippetLength = 30
+    highlightTag = "em"
+    absoluteURL = false
+
+    [params.search.fuse]
+      isCaseSensitive = false
+      minMatchCharLength = 2
+      findAllMatches = false
+      location = 0
+      threshold = 0.3
+      distance = 100
+      ignoreLocation = false
+      useExtendedSearch = false
+      ignoreFieldNorm = false
+
+  # ==================================================================================
+  # Page Configuration
+  # ==================================================================================
+  [params.page]
+    # whether to hide a page's header banner
+    hiddenFromHomePage = false
+    hiddenFromSearch = false
+    # twemoji
+    twemoji = false
+    # lightgallery
+    lightgallery = false
+    # ruby
+    ruby = true
+    # fraction
+    fraction = true
+    # fontawesome
+    fontawesome = true
+    # license info
+    license = '<a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>'
+    # toc
+    [params.page.toc]
+      enable = true
+      keepStatic = false
+      auto = true
+    # code
+    [params.page.code]
+      copy = true
+      maxShownLines = 10
+    # table
+    [params.page.table]
+      sort = true
+    # KaTeX math - using Hugo native passthrough + KaTeX rendering
+    [params.page.math]
+      enable = true
+      type = "katex"
+
+      [params.page.math.katex]
+        copyTex = true
+        throwOnError = false
+        errorColor = "#ff4949"
+        # Custom macros from the original blog
+        [params.page.math.katex.macros]
+          "\\pdiff" = "\\frac{\\partial{#1}}{\\partial{#2}}"
+          "\\nlspc" = "\\\\[0.5em]"
+          "\\empsym" = "{\\color{##ffa86a}{#1}}"
+
+    # Mermaid diagrams
+    [params.page.mermaid]
+      enable = true
+
+    # Giscus comments
+    [params.page.comment]
+      enable = true
+
+      [params.page.comment.giscus]
+        enable = true
+        repo = "elinx/elinx.github.io"
+        repoId = "R_kgDOIPR9_w"
+        category = "Announcements"
+        categoryId = "DIC_kwDOIPR9_84CSB4C"
+        mapping = "pathname"
+        reactionsEnabled = "1"
+        emitMetadata = "0"
+        inputPosition = "top"
+        lightTheme = "light"
+        darkTheme = "dark"
+        lazyLoad = true
+
+  # ==================================================================================
+  # SEO
+  # ==================================================================================
+  [params.seo]
+    image = ""
+    thumbnailUrl = ""
+
+  # ==================================================================================
+  # Analytics
+  # ==================================================================================
+  [params.analytics]
+    enable = false
+    [params.analytics.google]
+      id = "G-ME978TCHX2"
+      anonymizeIP = true
+
+  # ==================================================================================
+  # Mermaid CDN
+  # ==================================================================================
+  [params.mermaid]
+    cdn = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
+
+# ====================================================================================
+# Author
+# ====================================================================================
+
+[params.author]
+  name = "Elinx"
+  email = "xizzuli@163.com"
+  link = "https://github.com/elinx"
+  avatar = "https://avatars.githubusercontent.com/elinx"
+
+# ====================================================================================
+# Privacy
+# ====================================================================================
+
+[privacy]
+  [privacy.googleAnalytics]
+    anonymizeIP = true
+
+# ====================================================================================
+# Sitemap
+# ====================================================================================
+
+[sitemap]
+  changefreq = "weekly"
+  filename = "sitemap.xml"
+  priority = 0.5

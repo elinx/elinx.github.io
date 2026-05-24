@@ -1,8 +1,0 @@
-baseURL = 'http://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
-theme = 'terminal'
-
-[params]
-  Toc = true
-  TocTitle = '目录'
